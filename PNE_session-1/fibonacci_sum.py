@@ -2,7 +2,6 @@
 # from .fibonacci import fibonacci      why does it not work??
 
 def fibonacci(n):
-    n = int(n)
     if n == 0:
         print('Counting starts at term 1.')
         exit(1)

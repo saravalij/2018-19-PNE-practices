@@ -1,6 +1,5 @@
 
 def fibonacci(n):
-    n = int(n)
     if n == 0:
         print('Counting starts at term 1.')
         exit(1)
@@ -15,6 +14,14 @@ def fibonacci(n):
             fibn.append(next)
     return fibn
 
-nth_term = input('Please, introduce the number of term to calculate: ')
+condition = True
+
+while condition:
+    try:
+        nth_term = input('Please, introduce the number of term to calculate: ')
+        nth_term = int(nth_term)
+        condition = False
+    except:
+        print('You must introduce a valid integer. Try again.')
 
 print('\nTerm number {} of the fibonacci series is {}.'.format(nth_term, fibonacci(nth_term)[-1]))

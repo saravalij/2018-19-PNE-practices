@@ -25,3 +25,4 @@ else:
 
 print('The total length is: {}'.format(tl))
 print('The percentage of As is {}%'.format(perc))
+

@@ -24,7 +24,7 @@ for sequence in sequences:
             perc = round(100.0 * count_bases(sequence)[b] / len(sequence), 1)
         else:
             perc = 0
-
+# Printing results corresponding to one sequence at a time
         print("""Base {}
         Counter: {}
         Percentage: {}""".format(b, count_bases(sequence)[b], perc))

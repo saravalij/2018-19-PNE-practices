@@ -11,7 +11,6 @@ def count_bases(seq):
 
 # Main program
 s = input('Please enter the sequence: ')
-print(count_bases(s))
 
 # Print the total sequence length
 print('This sequence is {} bases in length'.format(len(s)))

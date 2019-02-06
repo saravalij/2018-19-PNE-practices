@@ -12,3 +12,4 @@ content = ''.join(content)
 
 for b in bases:
     print('{}: {}'.format(b, content.count(b)))
+

@@ -23,7 +23,7 @@ class Seq:
 
     def reverse(self):
 
-        return self.strbase[::-1]
+        return Seq(self.complement().strbase[::-1])
 
     def count(self, base):
 
@@ -32,11 +32,3 @@ class Seq:
     def perc(self, base):
 
         return round(100.0 * self.count(base) / self.len(), 1)
-
-
-s1 = Seq('AACTG')
-str1 = s1.strbase
-
-print(s1.complement().strbase)
-print(s1.reverse())
-print(s1.count('A'), s1.perc('A'))

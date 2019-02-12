@@ -1,0 +1,46 @@
+
+
+CLIENT-SERVER MODEL
+
+The client requests information (starts the communication) to the server, and the latter sends a response.
+
+The client might be a mobile phone, a tablet... a computer. So will be the server. Both of them might not be unique.
+
+When we test these client-server applications, usually we don't have two computers... client and server can be both held in the same computer.
+
+
+INTERNET
+
+Network that connects client and server. Inside it there are many isolated computers that are connected to each other and divided in groups
+called networks.
+
+IP addresses are needed for the clients' computer to be identified and sent the information to. One computer can have more than one IP.
+Network interfaces are established among computers that are connected to a wireless network.
+
+IP phone at uni: 10.3.53.43
+IP phone at home:
+IP machine (linux): 212.128.253.101
+
+PING
+
+Short message sent to a computer so to know whether a computer is working. All machines should answer to this request.
+
+ping to the lab computer:
+
+> time=0.085 ms
+
+ping to a mate's computer:
+
+> time=0.493 ms
+
+ping to phone's address:
+
+> time=20.4 ms
+
+ping to google:
+
+> 216.58.211.228
+
+ping to urjc.es:
+
+> 212.128.240.50

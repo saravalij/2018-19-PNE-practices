@@ -2,7 +2,7 @@
 import socket
 
 # SERVER IP, PORT
-IP = "192.168.1.133"
+IP = "192.168.1.130"
 PORT = 8086
 
 

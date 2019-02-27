@@ -1,29 +1,20 @@
 
 import socket
 
-PORT = 8082
-IP = '212.128.253.102'
+PORT = 8088
+IP = '192.168.1.132'
 
 
 clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+clientsocket.connect((IP, PORT))
 
-requests = []
+request = 'h\nPERCA\nCOMPLEMENT\nlen\nsup'
 
-while True:
-    req = input('> ')
-    requests.append(red)
+clientsocket.send(str.encode(request))
 
-    if len(requests) == 0:
-        print('h')
-        break
-    else:
+response = clientsocket.recv(2048).decode('utf-8')
 
+print()
+print(response)
 
-
-    if
-    clientsocket.connect((IP, PORT))
-    clientsocket.send(str.encode(message))
-    req = clientsocket.recv(2048).decode('utf-8')
-    print('Message:' )
-    print(req)
-    clientsocket.close()
+clientsocket.close()

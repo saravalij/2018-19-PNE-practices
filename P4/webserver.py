@@ -1,9 +1,14 @@
 import socket
 import termcolor
 
-IP = "192.168.1.120"
-PORT = 8081
+IP = "127.0.0.1"
+PORT = 8080
 MAX_OPEN_REQUESTS = 5
+
+def read_contents(page):
+    with open('{}.html'.format(page), 'r') as html_file:
+        contents = html_file.read()
+    return contents
 
 
 def process_client(cs):
@@ -18,15 +23,18 @@ def process_client(cs):
     print("Request message: ")
     termcolor.cprint(msg, 'green')
 
-    # Build the HTTP response message. It has the following lines
-    # Status line
-    # header
-    # blank line
-    # Body (content to send)
+    msg = msg.partition('/')   # so we separate the message in three parts: first, ip and port; second, / ; third, further command
 
-    # This new contents are written in HTML language
-    with open('index.html', 'r') as file:
-        contents = file.read()
+    if msg[2] == '':
+        request = 'index'
+    elif msg[2] == 'pink':
+        request = 'pink'
+    elif msg[2] == 'blue':
+        request = 'blue'
+    else:
+        request = 'error'
+
+    contents = read_contents(request)
 
     # -- Everything is OK
     status_line = "HTTP/1.1 200 OK\r\n"

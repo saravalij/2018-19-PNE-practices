@@ -23,13 +23,14 @@ def process_client(cs):
     print("Request message: ")
     termcolor.cprint(msg, 'green')
 
-    msg = msg.partition('/')   # so we separate the message in three parts: first, ip and port; second, / ; third, further command
+    msg = msg.partition('/')          # so we separate the message in three parts: first, GET ; second, / ; third, further instructions
+    msg = msg[2].partition(' ')       # now we use partition again so we get the command (/ or /pink or /blue) in the first position
 
-    if msg[2] == '':
+    if msg[0] == '':
         request = 'index'
-    elif msg[2] == 'pink':
+    elif msg[0] == 'pink':
         request = 'pink'
-    elif msg[2] == 'blue':
+    elif msg[0] == 'blue':
         request = 'blue'
     else:
         request = 'error'

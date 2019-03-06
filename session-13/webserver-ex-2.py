@@ -18,6 +18,10 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         termcolor.cprint(self.requestline, 'green')
 
+        print('Request line:' + self.requestline)
+        print('Cmd:' + self.command)
+        print('Path:' + self.path)
+
         if self.path == '/':
             request = 'index'
         else:

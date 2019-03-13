@@ -3,7 +3,7 @@ import socketserver
 import termcolor
 
 # Define the Server's port
-PORT = 8000
+PORT = 8001
 
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
@@ -17,14 +17,37 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
 
+        msg = self.requestline.partition('msg=')[2].partition(' ')[0]
+
         if self.path == '/':
             f = open("form-ex1.html", 'r')
             contents = f.read()
-            msg = self.requestline.partition('msg=')[2].partition(' ')[0]
+            f.close()
+
+        elif msg in self.path:
+            file = open('echo.html', 'w')
+            file.write('''
+            <!DOCTYPE html>
+                <html lang="en" dir="ltr">
+                    <head>
+                        <meta charset="utf-8">
+                        <title>eco?</title>
+                    </head>
+                    <body style="background-color: pink;">
+                        <h1>Eco del mensaje recibido</h1>
+                        <p>{}</p>
+                        <a href="/">Back to the form</a>
+                    </body>
+            </html>'''.format(msg))
+            file.close()
+            contents = open('echo.html', 'r')
+            contents = file.read()
+            file.close()
 
         else:
             f = open("error.html", 'r')
             contents = f.read()
+            f.close()
 
         # Generating the response message
         self.send_response(200)  # -- Status line: OK!
@@ -39,21 +62,6 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # Send the body of the response message
         self.wfile.write(str.encode(contents))
 
-        if msg != '':
-            file = open('echo.html', 'w')
-            file.write('''
-                        <!DOCTYPE html>
-                            <html lang="en" dir="ltr">
-                                <head>
-                                    <meta charset="utf-8">
-                                    <title>eco?</title>
-                                </head>
-                                <body style="background-color: pink;">
-                                    <h1>Eco del mensaje recibido</h1>
-                                    <p>{}</p>
-                                    <a href="/">Back to the form</a>
-                                </body>
-                            </html>'''.format(msg))
 
         return
 

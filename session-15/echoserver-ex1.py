@@ -40,7 +40,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     </body>
             </html>'''.format(msg))
             file.close()
-            contents = open('echo.html', 'r')
+            file = open('echo.html', 'r')
             contents = file.read()
             file.close()
 

@@ -3,13 +3,14 @@ import socketserver
 import termcolor
 
 # Define the Server's port
-PORT = 8001
+PORT = 8000
 
 
 def read_contents(page):
     with open('{}.html'.format(page), 'r') as html_file:
         contents = html_file.read()
     return contents
+
 
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
@@ -26,12 +27,16 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         # msg = self.requestline.partition('msg=')[2].partition(' ')[0]
 
         if self.path == '/':
-            contents = read_contents("form-ex1")
+            contents = read_contents("form-ex2")
 
         elif 'msg' in self.path:
-            message = self.path[self.path.index('=')+1:]
             contents = read_contents("echo")
-            contents = contents.format(message)
+            message = self.path[self.path.index('=')+1:]
+            if 'chk=on' in message:
+                message = message[:message.index('&')]
+                contents = contents.format(message.upper())
+            else:
+                contents = contents.format(message)
 
         else:
             contents = read_contents('error')

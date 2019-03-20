@@ -6,11 +6,6 @@ import termcolor
 PORT = 8001
 
 
-def read_contents(page):
-    with open('{}.html'.format(page), 'r') as html_file:
-        contents = html_file.read()
-    return contents
-
 # Class with our Handler. It is a called derived from BaseHTTPRequestHandler
 # It means that our class inheritates all his methods and properties
 class TestHandler(http.server.BaseHTTPRequestHandler):
@@ -21,32 +16,43 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
 
         # Print the request line
         termcolor.cprint(self.requestline, 'green')
-        termcolor.cprint(self.path, 'blue')
 
-        # msg = self.requestline.partition('msg=')[2].partition(' ')[0]
+        # -- Parser the path
+        list_resource = self.path.split('?')
+        resource = list_resource[0]
 
-        if self.path == '/':
-            contents = read_contents("form-ex1")
+        if resource == "/":
+            f = open("index.html", 'r')
+            code = 200
+            # Read the file
+            contents = f.read()
 
-        elif 'msg' in self.path:
-            message = self.path[self.path.index('=')+1:]
-            contents = read_contents("echo")
-            contents = contents.format(message)
+            content_type = 'text/html'
 
+        elif resource == "/listusers":
+            f = open("person.json", 'r')
+            code = 200
+            # Read the file
+            contents = f.read()
+            content_type = 'application/json'
         else:
-            contents = read_contents('error')
+            f = open("error.html", 'r')
+            code = 404
+            # Read the file
+            contents = f.read()
+            content_type = 'text/html'
 
         # Generating the response message
-        self.send_response(200)  # -- Status line: OK!
+        self.send_response(code)  # -- Status line: OK!
 
         # Define the content-type header:
-        self.send_header('Content-Type', 'text/html')
+        self.send_header('Content-Type', content_type)
         self.send_header('Content-Length', len(str.encode(contents)))
 
         # The header is finished
         self.end_headers()
 
-        # Send the body of the response message
+        # Send the response message
         self.wfile.write(str.encode(contents))
 
         return

@@ -1,0 +1,25 @@
+[{
+  "Firstname": "Mar",
+    "Lastname": "García",
+    "age": 30,
+    "phoneNumber": [
+      {"number": "1111", "type": "home"},
+      {"number": "333", "type" : "office"}
+    ]
+}, {
+  "Firstname": "Jack",
+    "Lastname": "McCallister",
+    "age": 24,
+    "phoneNumber": [
+      {"number": "5678", "type": "cell"},
+      {"number": "099", "type" : "office"}
+    ]
+}, {
+  "Firstname": "Andrea",
+    "Lastname": "Yi",
+    "age": 55,
+    "phoneNumber": [
+      {"number": "6666", "type": "cell"},
+      {"number": "999999", "type" : "home"}
+    ]
+}]

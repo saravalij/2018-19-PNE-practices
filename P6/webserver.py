@@ -1,8 +1,9 @@
+
+from P1.Seq import Seq
 import http.server
 import socketserver
 import termcolor
 
-# Define the Server's port
 PORT = 8001
 
 
@@ -11,27 +12,59 @@ def read_contents(page):
         contents = html_file.read()
     return contents
 
-# Class with our Handler. It is a called derived from BaseHTTPRequestHandler
-# It means that our class inheritates all his methods and properties
+
+def command_processing(obj, com, let):
+    try:
+        if com == 'percentage':
+            return str(obj.perc(let))
+        elif com == 'count':
+            return str(obj.count(let))
+    except IndexError:
+        return 'Error'
+
+
 class TestHandler(http.server.BaseHTTPRequestHandler):
 
     def do_GET(self):
         """This method is called whenever the client invokes the GET method
         in the HTTP protocol request"""
 
-        # Print the request line
         termcolor.cprint(self.requestline, 'green')
         termcolor.cprint(self.path, 'blue')
 
-        # msg = self.requestline.partition('msg=')[2].partition(' ')[0]
-
         if self.path == '/':
-            contents = read_contents("form-ex1")
+            contents = read_contents("form")
 
         elif 'msg' in self.path:
-            message = self.path[self.path.index('=')+1:]
-            contents = read_contents("echo")
-            contents = contents.format(message)
+            message = self.path[self.path.index('=')+1:self.path.index('&')]
+
+            # Checking whether it's a valid sequence
+            if all(x in ['A', 'C', 'T', 'G'] for x in message.upper()) and message != '':
+
+                results = []
+                seq = Seq(message.upper())
+                results.append('Introduced sequence: {}'.format(seq.strbase))
+                requests = self.path[self.path.index('&')+1:].split('&')
+                letter = 'z'
+
+                for r in requests:
+                    if 'chk=on' in r:
+                        length = seq.len()
+                        results.append('Total length: {}'.format(length))
+                    elif 'base' in r:
+                        letter = r[-1]
+                    elif 'operation' in r:
+                        if letter != 'z':
+                            op = r.partition('=')[2]
+                            counting = command_processing(seq, op, letter)
+                            results.append('Operation {} on the {} base: {}'.format(op, letter, counting))
+
+                results = '<br>'.join(results)
+
+            else:
+                results = 'Sorry, this sequence does not exist.\n'
+
+            contents = read_contents('result').format(results)
 
         else:
             contents = read_contents('error')

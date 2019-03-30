@@ -1,5 +1,4 @@
 import http.client
-import termcolor
 import json
 from P1.Seq import Seq
 
@@ -28,6 +27,7 @@ print('Number of T bases: {}.'.format(seq.count('T')))
 
 bases = ['A','C','G','T']
 great = 0
+popular = 'z'
 
 for b in bases:
     if seq.count(b) > great:
@@ -37,4 +37,4 @@ for b in bases:
 print('The most popular base in the sequence is {}, being its percentage {}%.'.format(popular, seq.perc(popular)))
 
 for b in bases:
-    print('Percentage of {} is: {}.'.format(b, seq.perc(b)))
+    print('Percentage of {} is: {}%.'.format(b, seq.perc(b)))
